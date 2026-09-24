@@ -26,7 +26,9 @@ sudo apt-get install -y build-essential
 ```
 
 If installation fails while building `annoy` with `command 'c++' failed` or a
-missing-compiler error, install these tools and rerun the original setup command.
+missing-compiler error, install these tools and rerun the command that failed
+(`./scripts/setup.sh` for automated setup, or the dependency-install command for
+manual setup).
 The setup script installs Python and JavaScript dependencies; it does not install
 system build tools.
 
