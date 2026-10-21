@@ -177,8 +177,11 @@ Missing S3 artifact objects return HTTP 404 before download streaming begins
 when the provider reports a missing key. On AWS S3, this requires `s3:ListBucket`
 on the configured bucket. Without that permission, AWS returns `AccessDenied`
 (HTTP 403) for missing keys, which the API returns as a server error.
-Provider authorization and transport errors remain server errors; a missing object
-does not trigger metadata deletion or automatic reconciliation.
+Provider authorization and transport errors detected while reading the first chunk
+return server errors before response headers are sent. If a read fails after the
+HTTP 200 headers are sent, the download ends with a truncated stream; the API cannot
+replace the status at that point. A missing object does not trigger metadata deletion
+or automatic reconciliation.
 
 ### S3 Security Responsibility
 
