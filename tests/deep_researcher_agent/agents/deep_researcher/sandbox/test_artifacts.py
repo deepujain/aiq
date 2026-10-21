@@ -423,7 +423,7 @@ class TestS3Store:
         assert store.get("job-1", stored.artifact_id) is None
 
     def test_stream_closes_after_consumption(self) -> None:
-        """Opening validates the object without consuming its streamed bytes."""
+        """Opening is lazy: get_object runs on first iteration and the body closes after consumption."""
         from unittest.mock import MagicMock
 
         body = _FakeStreamingBody(_PNG)
